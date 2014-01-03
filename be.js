@@ -3,6 +3,7 @@
 * 创建人：berwin
 * 用途：JS选择器
 */
+
 (function(){
 function getClass( oParent, oClass ){
     var arr = [];
