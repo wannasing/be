@@ -4,7 +4,6 @@
 * 用途：JS选择器
 */
 (function(){
-
 function getClass( oParent, oClass ){
     var arr = [];
     var aTag = oParent.getElementsByTagName( '*' );
@@ -59,18 +58,4 @@ window.be = function( str ){
     }
     return aChild;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })();
