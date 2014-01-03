@@ -6,6 +6,9 @@ beJs
 
 语法说明：be( '这里与CSS一样' );
 CSS2
+
     be( '.box ul li' );
+    
 CSS3
+
     be( '.box>ul>li>input[type="text"]' );
