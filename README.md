@@ -4,12 +4,26 @@ beJs
 
 它支持CSS2以及CSS3的所有语法，什么？你还不会CSS3？？那你只能玩它最基本的选择方式了。
 
-语法说明：be( '这里与CSS一样' );
+-------------
 
-CSS2
+######语法说明：be( '这里与CSS一样' );
 
-    be( '.box ul li' );
+元素选择器
+
+    be( 'div' );
+
+类选择器
+
+    be( '.div' );
     
-CSS3
+ID选择器
 
-    be( '.box>ul>li>input[type="text"]' );
+    be( '#id' );
+
+后代选择器
+
+    be( 'ul li' );
+    be( '.box h4' );
+    be( '#box div' );
+    be( 'div.box' );
+	be( 'li#list' );
