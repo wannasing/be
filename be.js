@@ -39,6 +39,27 @@ function getEle( aParent, str ){
             break;
 
             default:
+
+            if( /\w+\.[\w\-]+$/.test( str ) ){
+                var aStr = str.split( '.' );
+                var aTag = aParent[ i ].getElementsByTagName( aStr[ 0 ] );
+                var re = new RegExp( '([^\\w\\-]|^)'+ aStr[ 1 ] +'([^\\w\\-]|$)' );
+                for( var j = 0; j < aTag.length; j++ ){
+                    if( re.test( aTag[ j ].className ) ){
+                        arr.push( aTag[ j ] );
+                    }
+                }
+            }else if( /^\w+#[\w\-]+$/.test( str ) ){
+                var aStr = str.split( '#' );
+                var aTag = aParent[ i ].getElementsByTagName( aStr[0] );
+                for( var j = 0; j < aTag.length; j++ ){
+                    if( aTag[ j ].id === aStr[ 1 ] ){
+                        arr.push( aTag[ j ] );
+                    }
+                }
+            }
+
+
             var aTag = aParent[ i ].getElementsByTagName( str );
             for( var j = 0; j < aTag.length; j++ ){
                 arr.push( aTag[ j ] );
