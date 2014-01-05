@@ -57,6 +57,69 @@ function getEle( aParent, str ){
                         arr.push( aTag[ j ] );
                     }
                 }
+            }else if( /^\w+\[\w+=.+\]$/.test( str ) ){
+                var aStr = str.split( '[' );
+                aStr[ 1 ] = aStr[ 1 ].substring( 0, aStr[ 1 ].length - 1 );
+                var aTag = aParent[ i ].getElementsByTagName( aStr[0] );
+                var aStr2 = aStr[1].split( '=' );
+                for( var j = 0; j < aTag.length; j++ ){
+                    if( aTag[ j ].getAttribute( aStr2[0] ) === aStr2[1] ){
+                        arr.push( aTag[ j ] );
+                    }
+                }
+            }else if( /^\w+:\w+(\-\w+|\(.+\))?$/.test( str ) ){
+                var aStr = str.split( ':' );
+                var aTag = aParent[i].getElementsByTagName( aStr[0] );
+                var aStr2 = aStr[1].split( '(' );
+                if( aStr2[1] ){
+                    aStr2[1] = aStr2[1].substring( 0, aStr2[1].length - 1 );
+                }
+
+                switch( aStr2[0] ){
+                    case 'first':
+                        arr.push( aTag[0] );
+                    break;
+
+                    case 'last':
+                        arr.push( aTag[ aTag.length - 1 ] );
+                    break;
+
+                    case 'eq':
+                        arr.push( aTag[ aStr2[1] ] );
+                    break;
+
+                    case 'even':
+                        for( var j = 0; j < aTag.length; j++ ){
+                            if( j % 2 === 0 ){
+                                arr.push( aTag[ j ] );
+                            }
+                        }
+                    break;
+
+                    case 'odd':
+                        for( var j = 0; j < aTag.length; j++ ){
+                            if( j % 2 !== 0 ){
+                                arr.push( aTag[ j ] );
+                            }
+                        }
+                    break;
+
+                    case 'header':
+                        var aH = [];
+                        for( var j = 0; j < aTag.length; j++ ){
+                            for( var l = 1; l < 7; l++ ){
+                                aH.push( aTag[ j ].getElementsByTagName( 'h'+l ) );
+                            }
+                            for( var k = 0; k < aH.length; k++ ){
+                                if( aH[ k ].length ){
+                                    for( var m = 0; m < aH[k].length; m++ ){
+                                        arr.push( aH[k][m] );
+                                    }
+                                }
+                            }
+                        }
+                    break;
+                }
             }
 
 
