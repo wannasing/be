@@ -15,6 +15,8 @@ beJs
 ######类选择器
 
     be( '.div' );  // 选择所有 class 为 'div' 的元素
+    be( '.div.d' );  // 选择所有 class 为 'div d' 的元素
+    be( 'li.active' );  // 选择所有 li 的 class 为 'active' 的元素
     
 ######ID选择器
 
