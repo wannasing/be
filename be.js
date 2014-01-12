@@ -32,9 +32,28 @@ function getEle( aParent, str ){
             break;
 
             case '.':
-                var aTag = getClass( aParent[ i ], str.substring( 1 ) );
-                for( var j = 0; j < aTag.length; j++ ){
-                    arr.push( aTag[ j ] );
+                if( /^(\.[\w\-]+\.[\w\-]+)$/.test( str ) ){
+                    var aStr = str.match( /[\w\-]+/g );
+                    var aC = [];
+                    aC = getClass( aParent[ i ], aStr[ 0 ] );
+                    for( var j = 0; j < aC.length; j++ ){
+                        if( findArr( aC[ j ].className.split( ' ' ), aStr[1] ) ){
+                            arr.push( aC[ j ] );
+                        }
+                    }
+                }else if( /^\.[\w\-]+#[\w\-]+$/.test( str ) ){
+                    var aStr = str.match( /[\w\-]+/g );
+                    var aC = getClass( aParent[i], aStr[0] );
+                    for( var j = 0; j < aC.length; j++ ){
+                        if( aC[ j ].id === aStr[1] ){
+                            arr.push( aC[ j ] );
+                        }
+                    }
+                }else{
+                    var aTag = getClass( aParent[ i ], str.substring(1) );
+                    for( var j = 0; j < aTag.length; j++ ){
+                        arr.push( aTag[ j ] );
+                    }
                 }
             break;
 
