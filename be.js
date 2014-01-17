@@ -27,8 +27,19 @@ function getEle( aParent, str ){
     for( var i = 0; i < aParent.length; i++ ){
         switch( str.charAt( 0 ) ){
             case '#':
-                var obj = document.getElementById( str.substring( 1 ) );
-                arr.push( obj );
+                if( /#\w+>\w+/.test( str ) ){
+                    var aStr = str.match( /\w+/g );
+                    var obj = document.getElementById( aStr[0] );
+                    var aC = obj.children;
+                    for( var j = 0; j < aC.length; j++ ){
+                        if( aC[ j ].tagName.toLowerCase() === aStr[1] ){
+                            arr.push( aC[ j ] );
+                        }
+                    }
+                }else{
+                    var obj = document.getElementById( str.substring( 1 ) );
+                    arr.push( obj );
+                }
             break;
 
             case '.':
@@ -47,6 +58,17 @@ function getEle( aParent, str ){
                     for( var j = 0; j < aC.length; j++ ){
                         if( aC[ j ].id === aStr[1] ){
                             arr.push( aC[ j ] );
+                        }
+                    }
+                }else if( /^\.\w+>\w+/.test( str ) ){
+                    var aStr = str.match( /\w+/g );
+                    var aTag = getClass( aParent[i], aStr[0] );
+                    for( var j = 0; j < aTag.length; j++ ){
+                        var aC = aTag[ j ].children;
+                        for( var n = 0; n < aC.length; n++ ){
+                            if( aC[ n ].tagName.toLowerCase() === aStr[ 1 ] ){
+                                arr.push( aC[ n ] );
+                            }
                         }
                     }
                 }else{
@@ -139,8 +161,18 @@ function getEle( aParent, str ){
                         }
                     break;
                 }
+            }else if( /^\w+>\w+$/.test( str ) ){
+                var aStr = str.split( '>' );
+                var aTag = aParent[ i ].getElementsByTagName( aStr[ 0 ] );
+                for( var j = 0; j < aTag.length; j++ ){
+                    var aC = aTag[ j ].children;
+                    for( var n = 0; n < aC.length; n++ ){
+                        if( aC[ n ].tagName.toLowerCase() === aStr[ 1 ] ){
+                            arr.push( aC[ n ] );
+                        }
+                    }
+                }
             }
-
 
             var aTag = aParent[ i ].getElementsByTagName( str );
             for( var j = 0; j < aTag.length; j++ ){
@@ -153,7 +185,11 @@ function getEle( aParent, str ){
 }
 
 window.be = function( str ){
-    var arr = str.replace( /^\s+|\s+$/g, '' ).split( /\s+/ );
+    if( str.indexOf( '>' ) != -1 ){
+        var arr = [ str.replace( /\s+/g, '' ) ];
+    }else{
+        var arr = str.replace( /^\s+|\s+$/g, '' ).split( /\s+/ );
+    }
     var aChild = [];
     var aParent = [ document ];
     for( var i = 0; i < arr.length; i++ ){

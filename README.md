@@ -6,23 +6,48 @@ beJs
 
 -------------
 
-#####语法说明：be( '这里与CSS一样' );  返回类型 [ Array ]
+####语法说明：be( '这里与CSS一样' );  返回类型 [ Array ]
 
-######元素选择器
+#####基本选择器
+
+######be( 'element' );
+
+根据给定的元素名匹配所有元素
 
     be( 'div' );  // 选择所有 div 元素
 
-######类选择器
+
+######.be( 'class' );
+
+根据给定的 class 匹配元素。
 
     be( '.div' );  // 选择所有 class 为 'div' 的元素
     be( '.div.d' );  // 选择所有 class 为 'div d' 的元素
     be( 'li.active' );  // 选择所有 li 的 class 为 'active' 的元素
+
     
-######ID选择器
+######be( 'id' );
+
+根据给定的ID匹配一个元素。
 
     be( '#id' );  // 选择 id 为 'id' 的元素
 
-######后代选择器
+
+######be( 'element.class' );
+
+    be( 'div.box' );  // 选择所有 class 为 'box' 的 div
+
+
+######be( 'element#id' );
+
+    be( 'li#list' );  // 选择所有 id 为 'list' 的 li
+
+
+#####层级选择器
+
+######be( 'ancestor descendant' );
+
+在给定的祖先元素下匹配所有的后代元素
 
     be( 'ul li' );  // 选择所有 ul 下的 li
 
@@ -30,20 +55,34 @@ beJs
 
     be( '#box div' );  // 选择 id 为 'box' 下的所有 div
 
-    be( 'div.box' );  // 选择所有 class 为 'box' 的 div
 
-    be( 'li#list' );  // 选择所有 id 为 'list' 的 li
+######be( 'parent > child' );
 
-######属性选择器
+在给定的父元素下匹配所有的子元素
+
+    be( 'ul > li' );  //选择所有 ul 下的 li
+
+    be( '.box > div' )  //选取所有 class 为 'box' 的元素下的 div 元素
+
+    be( '#box > div' )  //选取所有 id 为 'box' 的元素下的 div 元素
+
+
+
+#####属性选择器
 
 [attribute=value] 匹配给定的属性是某个特定值的元素
+
 attribute => 属性名
+
 value => 属性值
+
 中间不能加空格
 
     be( 'input[type=button]' );  // 查找所有 type 属性是 button 的 input 元素
 
-######伪类选择器
+
+#####伪类选择器
+
 
 :first 获取第一个元素
 
